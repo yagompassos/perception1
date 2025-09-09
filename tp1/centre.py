@@ -26,23 +26,33 @@ def mouse_selection(event, x, y, flags, param):
                                     param1=100, param2=20,
                                     minRadius=1, maxRadius=0)
         
+        max_radius = 0
+        max_circle = None
+        max_center = None
+        
         if circles is not None:
             circles = np.uint16(np.around(circles))
             for i in circles[0, :]:
                 center = (i[0], i[1])
-                # circle center
-                cv.circle(img, center, 1, (0, 100, 100), 3)
-                # circle outline
                 radius = i[2]
-                cv.circle(img, center, radius, (255, 0, 255), 3)
-                cv.imshow("detected circles", img)
+                if radius > max_radius:
+                    max_radius = radius
+                    max_center = center
+                    max_circle = i
         else :
             print("No circles detected")
 
+        if max_circle is not None:
+            cv.circle(img, max_center, 1, (0, 100, 100), 3)
+            cv.circle(img, max_center, max_radius,  (255, 0, 255), 3)
+            cv.putText(img, f"centre: X: {max_center[0]}, Y: {max_center[1]}", (10, 500), cv.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2, cv.LINE_AA)
+            cv.putText(img, f"radius: {max_radius} px", (10, 550), cv.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2, cv.LINE_AA)
+            cv.imshow("detected circle", img)
+            print("Largest circle found at:", max_circle[0:2], "with radius:", max_radius)
+            
 
 
 img = cv.imread(cv.samples.findFile("../assets/balle_small.jpg"))
-
 
 cv.imshow("normal image", img)
 cv.setMouseCallback('normal image', mouse_selection)
