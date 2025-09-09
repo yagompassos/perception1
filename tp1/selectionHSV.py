@@ -1,5 +1,4 @@
 import cv2 as cv
-import sys
 import numpy as np
 
 def mouse_selection(event, x, y, flags, param):
@@ -10,7 +9,8 @@ def mouse_selection(event, x, y, flags, param):
 
         cor_rgb_np = np.uint8([[pixel_rgb]])
         cor_hsv = cv.cvtColor(cor_rgb_np, cv.COLOR_BGR2HSV)[0][0]
-        tolerancia_hsv = np.array([100, 100, 100])  # H, S, V
+        
+        tolerancia_hsv = np.array([60, 180, 100])  # H, S, V
         lower_bound = np.array(cor_hsv - tolerancia_hsv)
         upper_bound = np.array(cor_hsv + tolerancia_hsv)
 
@@ -20,24 +20,16 @@ def mouse_selection(event, x, y, flags, param):
 
         result_img = cv.bitwise_and(img, img, mask=mask)
 
-        cv.imshow("Pixels Selecionados", result_img)
+        cv.imshow("selecao", result_img)
 
 
 img = cv.imread(cv.samples.findFile("../assets/balle_small.jpg"))
-
-if img is None:
-    sys.exit("Could not read the image.")
 
 # img = cv.resize(img, (600, 800))
 
 cv.imshow("normal image", img)
 cv.setMouseCallback('normal image', mouse_selection)
 
-# hsv img
-
 k = cv.waitKey(0)
 
-if k == ord("s"):
-    cv.imwrite("imagem.png", img)
-
-    
+#haufh
