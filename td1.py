@@ -67,7 +67,7 @@ def mouse_selection(event, x, y, flags, param):
         cor_hsv = cv.cvtColor(cor_rgb_np, cv.COLOR_BGR2HSV)[0][0]
  
         mask = aplly_mask(cor_hsv)
-        # cv.imshow("mask", mask)
+        cv.imshow("mask", mask)
         
         morphologie = apply_morphologie(mask)
         # cv.imshow("morphologie", morphologie)
@@ -75,11 +75,11 @@ def mouse_selection(event, x, y, flags, param):
         gradient = cv.Laplacian(morphologie, cv.CV_8UC1)
         # cv.imshow("mask after morphologie, blur et gradient", gradient)
 
-        bon_cercle = findGoodCircle(gradient) #find the first circle with HOUGH CIRCLES
+        # bon_cercle = findGoodCircle(gradient) #find the first circle with HOUGH CIRCLES
 
 
 # le programe demarre ici!!!
-img = cv.imread(cv.samples.findFile("../assets/balle_small.jpg"))
+img = cv.imread(cv.samples.findFile("assets/balle_small.jpg"))
 
 cv.imshow("normal image", img)
 cv.setMouseCallback('normal image', mouse_selection) # appele la fonction mouse_selection()
