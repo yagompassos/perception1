@@ -53,7 +53,7 @@ def findGoodCircle(gradient):
         center = (int(first_circle[0]), int(first_circle[1]))
         radius = int(first_circle[2])
         print("First circle center:", center, "with radius:", radius)
-        cv.circle(img, center, radius, (255, 0, 255), 3)
+        cv.circle(img, center, radius, (255, 255, 0), 3)
         cv.imshow("detected circle", img)
         return first_circle
     else:
@@ -76,9 +76,9 @@ def mouse_selection(event, x, y, flags, param):
         # cv.imshow("morphologie", morphologie)
 
         gradient = cv.Laplacian(morphologie, cv.CV_8UC1)
-        cv.imshow("gradient", gradient)
+        #cv.imshow("gradient", gradient)
 
-        # bon_cercle = findGoodCircle(gradient) #find the first circle with HOUGH CIRCLES
+        bon_cercle = findGoodCircle(gradient) #find the first circle with HOUGH CIRCLES
 
 
 # le programe demarre ici!!!
